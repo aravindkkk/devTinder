@@ -1,17 +1,24 @@
 const express = require("express");
 const app = express();
 
-// app.use("/", (req, res) => {
-//     res.send("Default route.. ")
-// })
 
+
+app.get("/user", (req, res) => {
+
+    res.send({FName:"Aravind",LName:"Kumar"});
+})
+
+/* ab is ottional => ex: http://localhost:3000/ad*/
+app.get("/a(bc)+d", (req, res) => {
+ res.send({ firstName: "Akshay", lastName: "Saini" });
+});
+
+/* This will handle all the HTTP API Calls */
 app.use("/test", (req, res) => {
-    res.send("Server another route test .. ")
+    res.send("Server another route test .. ");
 })
 
-app.use("/main", (req, res) => {
-    res.send("another route main ..")
-})
+
 
 
 app.listen(3000, () => {

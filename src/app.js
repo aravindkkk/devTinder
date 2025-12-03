@@ -48,9 +48,9 @@ app.post("/login", async (req, res) => {
            throw new Error("EmailId not found..!");
        }
        
-       const isPasswordValid = await bcrypt.compare(password, user.password);
+       const isPasswordValid = await user.validatePassword(password);
        if(isPasswordValid){
-            const token = await jwt.sign({ _id: user._id }, "632103@divtinder",{ expiresIn:"1d"});
+            const token = await user.getjwt();
             res.cookie("token",token, {
              expires: new Date(Date.now() + 8 * 3600000) 
             });

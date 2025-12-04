@@ -1,6 +1,6 @@
-const express = require("express");
-const profileRouter = express.Router();
-const { userAuth } = require("../Middlewares/auth");
+const express                = require("express");
+const profileRouter          = express.Router();
+const { userAuth }           = require("../Middlewares/auth");
 const { validateEditFields } = require("../utils/validation");
 
 //profile API to get the profile details

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const jwt      = require("jsonwebtoken");
+const bcrypt   = require("bcrypt");
 
-const userSchema =new mongoose.Schema(
+const userSchema = new mongoose.Schema(
 {
     firstName: {
         type: String,
@@ -56,6 +56,9 @@ const userSchema =new mongoose.Schema(
 }
 
 );
+
+//compound index
+userSchema.index({ firstName: 1, lastName: 1 });
 
 // for jwt & arrow function will not work here because of this keyword
 userSchema.methods.getjwt = async function () {

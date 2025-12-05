@@ -47,13 +47,13 @@ requestRouter.post("/request/:status/:toUserId", userAuth,  async (req, res) => 
             })
         }
 
-         const connectionRequest = new ConnectionRequestModel({
-        fromUserId,
-        toUserId,
-        status,
-      });
+         const connectionRequestData = new ConnectionRequestModel({
+            fromUserId,
+            toUserId,
+            status,
+        });
 
-      const data = await connectionRequest.save();
+      const data = await connectionRequestData.save();
          res.status(200).json({
         message: authUser.firstName + " is " + status + " in " + toUser.firstName,
         data,
@@ -66,6 +66,47 @@ requestRouter.post("/request/:status/:toUserId", userAuth,  async (req, res) => 
         res.status(400).send("ERROR : " + err.message);
     }
 
+});
+
+requestRouter.post("/review/:status/:requestId", userAuth,  async (req, res) => {
+    try{
+
+        loggedInuser = req.user;
+        const { status, requestId } = req.params;
+
+        const allowedStatus = ["accepted", "rejected"];
+        if(!allowedStatus.includes(status)){
+           return  res.status(400).json({
+                message: "Status not allowed..!",
+                success: false,
+            })
+        };
+        const connectionRequestData = await ConnectionRequestModel.findOne({
+            
+            _id:requestId,
+            toUserId:loggedInuser._id,
+            status:"intrested"
+        });
+
+        if(!connectionRequestData){
+            return  res.status(400).json({
+                message: "Connection request not found..!",
+                success: false,
+            })
+        }
+
+        connectionRequestData.status = status;
+        const data = await connectionRequestData.save();
+        res.status(200).json({
+            message: "Connection request " + status,
+            data,
+            success: true,
+        });
+        
+
+    } catch (err) {
+        res.status(400).send("Errpr : " + err.message);
+    }
 });
 
 module.exports = requestRouter;

@@ -9,7 +9,7 @@ const userAuth = async (req, res, next) => {
         const { token } = req.cookies;
          if(!token)
         {
-            throw new Error("Invalid token..!");
+            return res.status(401).send("Please Login .. !");
         }
         const isTokenValid = await jwt.verify(token, '632103@divtinder');
         const user = await User.findById(isTokenValid);

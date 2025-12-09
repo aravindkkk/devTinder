@@ -4,13 +4,13 @@ const { userAuth }            = require("../middlewares/auth");
 const ConnectionRequestModel  = require("../models/connectionRequest");
 const User                    = require("../models/user");
 
-const USER_SAFE_DATA = "firstName lastName photoURL about age gender skills";
+const USER_SAFE_DATA = "firstName lastName url about age gender skills";
 
 userRouter.get("/user/requests/recieved", userAuth, async (req, res) => {
     try {
        
         const loggedInUser = req.user;
-        const connectionRequestData = await ConnectionRequest.find({
+        const connectionRequestData = await ConnectionRequestModel.find({
             toUserId:loggedInUser._id,
             status:"intrested"
         }).populate("fromUserId", USER_SAFE_DATA);
@@ -87,8 +87,11 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
 
        }).select(USER_SAFE_DATA).skip(skip).limit(limit);
 
-       
-         res.send(users);
+       res.send(users);
+        //  res.status(200).json({
+        //         users,
+        //     });
+
 
 
     } catch(err){

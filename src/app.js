@@ -3,9 +3,9 @@ const connectDB    = require("./config/database");
 const app          = express();
 const cookieParser = require("cookie-parser");
 const cors         = require("cors");
-// const  dotenv      = require("dotenv");
-// dotenv.config({ path: ".env" });
 require("dotenv").config();
+
+
 
 app.use(express.json());// convert json object to js object
 app.use(cookieParser());// reading jwt cookies parcer

@@ -32,7 +32,7 @@ connectDB()
     console.log("Database connection established....");
     
     app.listen(process.env.PORT, () => {
-    console.log("Server is successfully listening on port 3000..!");
+    console.log("Server is Successfully listening on port 3000..!");
 });
 
 })

@@ -15,7 +15,7 @@ const userAuth = async (req, res, next) => {
         const user = await User.findById(isTokenValid);
         if(!user)
         {
-            throw new Error("User does not exits..!");
+            throw new Error("User does not exits ...!");
         }
         req.user = user;
         next();

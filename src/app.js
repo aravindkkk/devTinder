@@ -4,7 +4,7 @@ const app          = express();
 const cookieParser = require("cookie-parser");
 const cors         = require("cors");
 require("dotenv").config();
-
+require("./utils/cronJobs");
 
 
 app.use(express.json());// convert json object to js object

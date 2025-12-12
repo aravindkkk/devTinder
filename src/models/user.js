@@ -41,12 +41,20 @@ const userSchema = new mongoose.Schema(
             }
         }
     },
+    
     about: {
         type: String,
         default:"This is default skills"
     },
     skills: {
         type: [String],
+    },
+    ispremium: {
+        type: Boolean,
+        default:false
+    },
+    membershipType: {
+        type: String
     },
 
  },

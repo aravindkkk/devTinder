@@ -19,7 +19,11 @@ cron.schedule("20 15 * * *", async () => {
             }
         }).populate("fromUserId toUserId");
 
-        // [ ...new ] => converting to array
+        // [ ...new ] => ...new Set() = “Give me only unique values and put them into an array.”
+        /* Take emailId from each request
+           Remove duplicates using new Set()
+           Convert that Set back into an array using ...
+        */
         const listOfEmails = [
             ...new Set(pendingConnectionReq.map((req) => req.toUserId.emailId))
         ];

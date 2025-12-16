@@ -49,10 +49,7 @@ paymentRouter.post("/payment/create", userAuth, async(req, res) => {
 
 
     } catch(err) {
-        res.status(400).json({
-            msg: err
-        })
-
+        res.status(400).json({ msg: err })
     }
 
 });
@@ -75,7 +72,7 @@ paymentRouter.post("/payment/webhook/", async(req,res) => {
         await payment.save();
 
         const user = await User.findOne({ _id: payment.userId});
-        user.ispremium      = true;
+        user.isPremium      = true;
         user.membershipType = payment.notes.membershipType;
         await user.save();
 
@@ -88,12 +85,24 @@ paymentRouter.post("/payment/webhook/", async(req,res) => {
         return res.status(200).json({ msg : "Webhook recevied successfully ..!" })
        
     } catch(err) {
-        res.status(400).json({
-            msg: err
-        })
-
+        res.status(400).json({ msg: err })
     }
-})
+});
+
+paymentRouter.post("/premium/verify", userAuth, async(req, res) => {
+    try{
+
+        const user = req.user;
+        if(user.isPremium){
+            return res.json({ isPremium:true })
+        }
+          return res.json({ isPremium:false })
+
+    } catch (err){
+         res.status(400).json({ msg: err })
+    }
+
+});
 
 
 
